@@ -18,7 +18,7 @@ public class Main {
      * 3. Output early generated strings to console.
      * 4. Performing algorithm that searching minimum value of size by each string of array.
      * 5. Output the resulting string to console.
-     * @param args - nothing here ^_^.
+     * @param args - nothing here.
      */
     public static void main(String[] args) {
         final int arraySize = consoleRead();
