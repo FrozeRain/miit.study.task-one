@@ -24,8 +24,12 @@ public abstract class StringArrayService {
      * {@link #minWordsCount} and {@link #maxWordsCount}.
      * @param strings - array of strings.
      * @return strings array with generated strings.
+     * @throws NullPointerException is strings array is null.
      */
-    public static String[] generateTestData(String... strings) {
+    public static String[] generateTestData(String... strings) throws NullPointerException{
+        if (strings == null) {
+            throw new NullPointerException("Can't Generate data: Strings Array is null!");
+        }
         Random wordsCount = new Random();
         for (int i = 0; i < strings.length; i++) {
             strings[i] = generator.getWords(
@@ -38,8 +42,12 @@ public abstract class StringArrayService {
      * Previews existing strings array as one formatted string.
      * @param strings - array of strings.
      * @return formatted string as concatenation of strings array.
+     * @throws NullPointerException is strings array is null.
      */
-    public static String toFormattedString(String... strings) {
+    public static String toFormattedString(String... strings) throws NullPointerException{
+        if (strings == null) {
+            throw new NullPointerException("Can't Reformat data: Strings Array is null!");
+        }
         StringBuilder sb = new StringBuilder();
         for (String str: strings) {
             sb.append(str).append("\n> ");
@@ -52,8 +60,12 @@ public abstract class StringArrayService {
      * Method searching the first strings array's index of string with minimum value of length.
      * @param strings - array of strings.
      * @return string at the index to be found.
+     * @throws NullPointerException is strings array is null.
      */
-    public static String getMinStringLength(String... strings) {
+    public static String getMinStringLength(String... strings) throws NullPointerException{
+        if (strings == null) {
+            throw new NullPointerException("Can't Search min length: Strings Array is null!");
+        }
         int minLengthIndex = 0;
         for (int i = 0; i < strings.length; i++) {
             if (strings[minLengthIndex].length() > strings[i].length()) {

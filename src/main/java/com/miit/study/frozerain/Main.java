@@ -2,6 +2,7 @@ package com.miit.study.frozerain;
 
 import com.miit.study.frozerain.service.StringArrayService;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -21,23 +22,29 @@ public class Main {
      * @param args - nothing here.
      */
     public static void main(String[] args) {
-        final int arraySize = consoleRead();
+        try {
+            final int arraySize = consoleRead();
+            //This condition prohibits using negative value of size.
+            if (arraySize > 0) {
+                String[] stringsArray = new String[arraySize];
 
-        //This condition prohibits using negative value of size.
-        if (arraySize > 0) {
-            String[] stringsArray = new String[arraySize];
+                //Filling strings array with randomly generated strings...
+                consoleWrite("\n> GENERATED STRINGS:\n> " +
+                        StringArrayService.toFormattedString(
+                                StringArrayService.generateTestData(stringsArray)
+                        ));
 
-            //Filling strings array with randomly generated strings...
-            consoleWrite("\n> GENERATED STRINGS:\n> " +
-                    StringArrayService.toFormattedString(
-                    StringArrayService.generateTestData(stringsArray)
-            ));
+                //Performing searching algorithm...
+                consoleWrite("\n> SEARCHING STRING WITH MIN LENGTH:\n> " +
+                        StringArrayService.getMinStringLength(stringsArray) + "\n");
+            } else {
+                throw new IllegalArgumentException("Array's size must be more that zero!");
+            }
 
-            //Performing searching algorithm...
-            consoleWrite("\n> SEARCHING STRING WITH MIN LENGTH:\n> " +
-                    StringArrayService.getMinStringLength(stringsArray) + "\n");
-        } else {
-            consoleWrite("Array's size must be more that zero!");
+        } catch (InputMismatchException e) {
+            consoleWrite("Array's size must be numeric value!");
+        } catch (IllegalArgumentException | NullPointerException e) {
+            consoleWrite(e.getMessage());
         }
         //TODO quick hack to keep console window in focus.
         consoleScanner.nextLine();
@@ -48,7 +55,7 @@ public class Main {
      * Simple console reading method using OOB class {@link Scanner}.
      * @return integer value from console input.
      */
-    public static int consoleRead() {
+    private static int consoleRead() {
         consoleWrite("Please specify SIZE of strings array: ");
         return consoleScanner.nextInt();
     }
@@ -57,7 +64,7 @@ public class Main {
      * Simple console writing method using OOB system output stream.
      * @param msg - message that need to write to console.
      */
-    public static void consoleWrite(String msg) {
+    private static void consoleWrite(String msg) {
         System.out.print("> " + msg);
     }
 }
